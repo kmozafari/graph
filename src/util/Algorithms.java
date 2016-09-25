@@ -1,8 +1,13 @@
 package util;
 
+import com.carrotsearch.hppc.IntArrayList;
 import grph.Grph;
 import grph.algo.distance.DistanceMatrix;
 import grph.path.Path;
+import org.jfree.data.category.DefaultCategoryDataset;
+import toools.set.IntSet;
+
+import java.util.stream.IntStream;
 
 /**
  * Created by kourosh on 9/23/16.
@@ -74,6 +79,45 @@ public class Algorithms {
             sum += s;
         }
         return sum / (graphSize * (graphSize - 1));
+    }
+
+
+    public static double getUniqueRobustnessMeasure(Grph graph, boolean showChart) {
+        IntArrayList allInEdgeDegrees = graph.getAllInEdgeDegrees();
+        int[] verticesDegrees = allInEdgeDegrees.toArray();
+        int[] sortedIndices = IntStream.range(0, verticesDegrees.length)
+                .boxed().sorted((i, j) -> verticesDegrees[j] - verticesDegrees[i])
+                .mapToInt(ele -> ele).toArray();
+
+        int graphSize = graph.getVertices().size();
+        double[] Qs = new double[graphSize];
+
+        double sum = 0;
+        for (int i = 0; i < graphSize; i++) {
+            System.out.println(i);
+            Grph tempGraph = graph.clone();
+            for (int j = 0; j <= i; j++) {
+                tempGraph.removeVertex(sortedIndices[j]);
+            }
+            IntSet largestConnectedComponent = tempGraph.getLargestConnectedComponent();
+            if (largestConnectedComponent != null) {
+                int size = largestConnectedComponent.size();
+                double qs = (double) size / graphSize;
+                Qs[i] = qs;
+                sum += qs;
+            }
+        }
+
+        if (showChart) {
+            DefaultCategoryDataset QsDataset = new DefaultCategoryDataset();
+            for (int i = 0; i < graphSize; i++) {
+                double size = Qs[i];
+                QsDataset.addValue(size, "", String.valueOf(i));
+            }
+            Chart.displayChart(QsDataset);
+        }
+
+        return ((double) 1 / graphSize) * sum;
     }
 
 

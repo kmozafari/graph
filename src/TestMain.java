@@ -19,14 +19,14 @@ public class TestMain {
 
 
         Grph graph = new InMemoryGrph();
-
-        graph.addUndirectedSimpleEdge(0, 1);
-        graph.addUndirectedSimpleEdge(0, 2);
-        graph.addUndirectedSimpleEdge(1, 3);
-        graph.addUndirectedSimpleEdge(1, 4);
-        graph.addUndirectedSimpleEdge(2, 3);
-        graph.addUndirectedSimpleEdge(3, 4);
-        graph.addVertex(5);
+        {/*
+            graph.addUndirectedSimpleEdge(0, 1);
+            graph.addUndirectedSimpleEdge(0, 2);
+            graph.addUndirectedSimpleEdge(1, 3);
+            graph.addUndirectedSimpleEdge(1, 4);
+            graph.addUndirectedSimpleEdge(2, 3);
+            graph.addUndirectedSimpleEdge(3, 4);
+            graph.addVertex(5);
 
 //        AdjacencyMatrix compute = graph.adjacencyMatrixAlgo.compute(graph);
 //        DistanceMatrix distanceMatrix = graph.getDistanceMatrix(graph.getEdgeWidthProperty());
@@ -36,13 +36,45 @@ public class TestMain {
 //
 //        graph.display();
 
-        boolean b = graph.containsAPath(1, 4);
-        Path shortestPath = graph.getShortestPath(1, 4);
-        boolean b1 = graph.containsAPath(0, 5);
+            boolean b = graph.containsAPath(1, 4);
+            Path shortestPath = graph.getShortestPath(1, 4);
+            boolean b1 = graph.containsAPath(0, 5);
 //        Path shortestPath1 = graph.getShortestPath(0, 5);
 
-        double globalEfficiency1 = Algorithms.getGlobalEfficiency(graph);
-        System.out.println("globalEfficiency1 = " + globalEfficiency1);
+            double globalEfficiency1 = Algorithms.getGlobalEfficiency(graph);
+            System.out.println("globalEfficiency1 = " + globalEfficiency1);
+       */
+        }
+
+        {
+            graph.addUndirectedSimpleEdge(0, 1);
+            graph.addUndirectedSimpleEdge(0, 2);
+            graph.addUndirectedSimpleEdge(0, 3);
+            graph.addUndirectedSimpleEdge(0, 4);
+            graph.addUndirectedSimpleEdge(0, 5);
+            graph.addUndirectedSimpleEdge(0, 6);
+
+            double uniqueRobustnessMeasure = Algorithms.getUniqueRobustnessMeasure(graph, false);
+            System.out.println("uniqueRobustnessMeasure = " + uniqueRobustnessMeasure);
+
+        }
+
+
+        {/*
+            graph.addUndirectedSimpleEdge(0, 1);
+            graph.addUndirectedSimpleEdge(0, 2);
+            graph.addUndirectedSimpleEdge(0, 3);
+            graph.addUndirectedSimpleEdge(1, 0);
+            graph.addUndirectedSimpleEdge(1, 2);
+            graph.addUndirectedSimpleEdge(1, 3);
+            graph.addUndirectedSimpleEdge(2, 0);
+            graph.addUndirectedSimpleEdge(2, 1);
+            graph.addUndirectedSimpleEdge(2, 3);
+
+            double uniqueRobustnessMeasure = Algorithms.getUniqueRobustnessMeasure(graph, false);
+            System.out.println("uniqueRobustnessMeasure = " + uniqueRobustnessMeasure);
+            */
+        }
 
 
     }
